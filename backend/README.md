@@ -15,11 +15,10 @@ Esta API recebe uma pergunta, gera um sql e consulta a base de dados.
 
 ## 📦 Instalação
 
-1. **Clone o projeto**:
+1. **Acesse a pasta do backend:**:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd nome-do-projeto
+cd backend
 ```
 
 2. **Clone o projeto**:
