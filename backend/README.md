@@ -21,7 +21,7 @@ Esta API recebe uma pergunta, gera um sql e consulta a base de dados.
 cd backend
 ```
 
-2. **Clone o projeto**:
+2. **Instalar bibliotecas**:
 
 ```bash
 pip install -r requirements.txt
