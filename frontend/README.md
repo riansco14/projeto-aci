@@ -37,3 +37,6 @@ npm install
 ```bash
 npm run dev
 ```
+
+Link Node 18.20:
+https://nodejs.org/en/download

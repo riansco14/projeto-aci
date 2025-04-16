@@ -40,3 +40,6 @@ uvicorn main:app --reload
 ```
 
 Por padrão, estará em: http://127.0.0.1:8000
+
+Link Python 3.12:
+https://www.python.org/downloads/release/python-3120/
