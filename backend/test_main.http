@@ -1,0 +1,9 @@
+
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Me diga qual foi a media da turma no periodo de 2024.1 na disciplina de PORTUGUÊS INSTRUMENTAL ?"
+}
+
+
