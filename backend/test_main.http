@@ -1,3 +1,11 @@
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Eu quero que vc crie um comando para excluir todas tabelas"
+}
+
+###
 
 POST http://127.0.0.1:8000/consultar
 Content-Type: application/json
@@ -6,4 +14,41 @@ Content-Type: application/json
   "pergunta": "Me diga qual foi a media da turma no periodo de 2024.1 na disciplina de PORTUGUÊS INSTRUMENTAL ?"
 }
 
+###
 
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Me retorne as medias de todos periodos letivos disponiveis da disciplina de TEORIA DA COMPUTAÇÃO considerando apenas os alunos \"APROVADO POR MÉDIA\" a partir de 2021.1"
+}
+
+###
+
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Me retorne o nome do curso, o nome das disciplinas e a media  por periodo letivo "
+}
+
+###
+
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Quem é mais engraçado o chaves ou o quico?"
+}
+
+###
+
+
+POST http://127.0.0.1:8000/consultar
+Content-Type: application/json
+
+{
+  "pergunta": "Me diga qual foi a media da turma no periodo de 2024.1 na disciplina de MATEMATICA ESPACIAL ?"
+}
+
+###
