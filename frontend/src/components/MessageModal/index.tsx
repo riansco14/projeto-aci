@@ -14,6 +14,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { DinamicTable } from "../DinamicTable";
 import { LineChartCustom } from "../LineChartCustom";
+import api from "../../services/api";
 
 interface MessageModalProps {
   open: boolean;
@@ -33,18 +34,11 @@ const MessageModal: React.FC<MessageModalProps> = ({ open, onClose }) => {
     setAnswer(null); // limpa resposta anterior
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/consultar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ pergunta: message }),
-      });
+      const response = await api.post("/consultar", { pergunta: message });
 
-      if (!res.ok) throw new Error("Erro na API");
+      if (!response.data) throw new Error("Erro na API");
 
-      const data = await res.json();
-      setAnswer(data);
+      setAnswer(response.data);
     } catch (err) {
       setAnswer({ resposta: "Erro ao consultar resposta. Tente novamente." });
     } finally {
