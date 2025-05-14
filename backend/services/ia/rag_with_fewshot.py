@@ -5,11 +5,15 @@ from llama_index.core.schema import TextNode
 from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core.prompts import RichPromptTemplate
+from sqlalchemy.orm import Session
 
 from config.env import openai_key
+from repositories import user_repository
 from services.sql.sql_exec import exec_sql_command
 
 import numpy as np
+
+from utils.utils import count_tokens
 
 # Configurar chave
 os.environ["OPENAI_API_KEY"] = openai_key
@@ -128,11 +132,13 @@ def convert_to_np_array(arr):
         raise ValueError("Problema durante a conversão do tipo")
 
 
-def generate_response_from_prompt(query_str: str) -> dict:
+def generate_response_from_prompt(db: Session, user_id: str, query_str: str) -> dict:
     prompt = prompt_tmpl.format(
         query_str=query_str
     )
     response = Settings.llm.complete(prompt)
+    qntd_tokens = count_tokens(prompt)
+    user_repository.add_tokens_in_user(db, user_id, qntd_tokens)
     print(response.text)
     result_query_sql = exec_sql_command(response.text)
 
@@ -144,12 +150,16 @@ def generate_response_from_prompt(query_str: str) -> dict:
     if result_np_array.size == 1:
         prompt_to_interpreter = gerar_prompt_interpretacao(query_str, result_query_sql["rows"])
         response_interpreter = Settings.llm.complete(prompt_to_interpreter)
+        qntd_tokens_interpreter = count_tokens(prompt_to_interpreter)
+        user_repository.add_tokens_in_user(db, user_id, qntd_tokens_interpreter)
         return {"resposta": str(response_interpreter.text), "shape": 1}
 
     print(result_np_array.size)
     if result_np_array.size <= 12:
         prompt_to_interpreter = gerar_prompt_interpretacao(query_str, result_query_sql["rows"])
         response_interpreter = Settings.llm.complete(prompt_to_interpreter)
+        qntd_tokens_interpreter = count_tokens(prompt_to_interpreter)
+        user_repository.add_tokens_in_user(db, user_id, qntd_tokens_interpreter)
         return {"resposta": str(response_interpreter.text), "colunas": result_query_sql["columns"] ,"shape": result_np_array.shape, "dados": result_query_sql["rows"]}
     else:
         return {"resposta": None, "shape": result_np_array.shape,"colunas": result_query_sql["columns"] , "dados": result_query_sql["rows"]}
