@@ -109,7 +109,12 @@ const Register = () => {
             />
             {error && <Typography color="error">{error}</Typography>}
           </form>
-          <Button type="submit" variant="contained" fullWidth>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            onClick={handleSubmit}
+          >
             Registrar
           </Button>
           <Button
